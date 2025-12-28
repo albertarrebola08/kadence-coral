@@ -1,0 +1,79 @@
+/*
+Theme Name: Kadence Coral
+Template: kadence
+*/
+
+/* Custom styles for Kadence Coral child theme */
+body {
+  color: #333333; /* Dark text color for readability */
+}
+
+.entry-header {
+  min-height: 50px !important;
+}
+.entry-header h1 {
+  font-size: 1.5rem !important;
+}
+
+.partitures-logout {
+  margin-bottom: 1rem;
+}
+
+.btn-logout {
+  display: inline-block;
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid #ddd;
+  background: #d00909;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #fafafa;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.btn-logout:hover {
+  background: #f3f3f3;
+  color: #d00909;
+}
+
+/* login button  */
+/* BOTÓ ACCÉS MEMBRES (MENU) */
+#menu-item-49 > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  background: #711c1c;
+  color: #fff !important;
+
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+/* HOVER */
+#menu-item-49 > a:hover {
+  background: #3d0505;
+  transform: translateY(-1px);
+}
+
+/* ICONA USUARI */
+#menu-item-49 > a::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+
+  background-image: url("https://www.svgrepo.com/show/493626/user-profile-account-person.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  filter: invert(1); /* fa la icona blanca */
+}
