@@ -4,13 +4,18 @@
 
 body.login {
   background: linear-gradient(180deg, #f6f6f6, #eeeeee);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
     sans-serif;
 }
 
 /* Caixa del login */
 .login #login {
   width: 380px;
+  margin-top: 2%;
   padding: 2.2rem 2.2rem 2rem;
   background: #ffffff;
   border-radius: 18px;
@@ -56,14 +61,14 @@ body.login {
   width: 100%;
   padding: 0.75rem;
   border-radius: 999px;
-  background: #3d0505;
+  background: #2b824d;
   border: none;
   font-size: 0.95rem;
   font-weight: 600;
 }
 
 .login .button-primary:hover {
-  background: #711c1c;
+  background: #2b824d;
 }
 
 /* Links inferiors */

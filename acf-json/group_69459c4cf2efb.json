@@ -1,0 +1,258 @@
+{
+    "key": "group_69459c4cf2efb",
+    "title": "Dades de la partitura",
+    "fields": [
+        {
+            "key": "field_69459c4db3ff5",
+            "label": "Dades de la partitura",
+            "name": "dades_de_la_partitura",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_69459c94b3ff6",
+                    "label": "PDF",
+                    "name": "pdf",
+                    "aria-label": "",
+                    "type": "file",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_size": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "allow_in_bindings": 0
+                },
+                {
+                    "key": "field_69459cbab3ff7",
+                    "label": "Autor",
+                    "name": "autor",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Si hi ha més d'una persona separa-les amb una barra \"\/\" (Exemple: J.Costa\/O.Martorell)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_69486593068fc",
+                    "label": "Harmonització",
+                    "name": "harmonitzacio",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Si hi ha més d'una persona separa-les amb una barra \"\/\" (Exemple: J.Costa\/O.Martorell)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_694865a0068fd",
+                    "label": "Adaptació",
+                    "name": "adaptacio",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Si hi ha més d'una persona separa-les amb una barra \"\/\" (Exemple: J.Costa\/O.Martorell)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_694865b9068fe",
+                    "label": "Traducció - lletra",
+                    "name": "traduccio_lletra",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Si hi ha més d'una persona separa-les amb una barra \"\/\" (Exemple: J.Costa\/O.Martorell)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_694865da06900",
+                    "label": "Temps",
+                    "name": "temps",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Escriu un any (ex: 1933) o un rang separat per guions (ex: 1567-1896). El sistema sinó no ho detectarà correctament",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_6996d83ee5447",
+                    "label": "Llibre",
+                    "name": "llibre",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_6996e544f1ea6",
+                    "label": "Número",
+                    "name": "numero",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Format recomanat: 3 dígits (001, 045, 143).",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_6996e7feed209",
+                    "label": "Any inici",
+                    "name": "any_inici",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "S’omple automàticament a partir de \"Temps\". (No tocar si no cal)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "min": "",
+                    "max": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "step": 1,
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_6996e85ded20a",
+                    "label": "Any fi",
+                    "name": "any_fi",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "S’omple automàticament a partir de \"Temps\". (No tocar si no cal)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "min": "",
+                    "max": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "step": 1,
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "partitura"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "modified": 1771497620
+}

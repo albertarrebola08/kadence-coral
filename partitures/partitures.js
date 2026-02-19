@@ -5,17 +5,13 @@ jQuery(function ($) {
   const $count = $("#partitures-count");
 
   let isLoading = false;
+  let typingTimer = null;
 
-  /* =========================
-     AJAX LOAD
-  ========================= */
   function carregarPartitures(reset = false) {
     if (isLoading) return;
     isLoading = true;
 
-    if (reset) {
-      $form.find('input[name="paged"]').val(1);
-    }
+    if (reset) $form.find('input[name="paged"]').val(1);
 
     $loader && $loader.show();
 
@@ -24,15 +20,8 @@ jQuery(function ($) {
       type: "POST",
       data: $form.serialize(),
       success: function (response) {
-        const page = parseInt($form.find('input[name="paged"]').val());
+        $grid.html(response);
 
-        if (page === 1) {
-          $grid.html(response);
-        } else {
-          $grid.append(response);
-        }
-
-        // Comptador de resultats
         if ($count) {
           const total = $grid.find(".partitura-card").length;
           $count.text(total + " resultats");
@@ -48,45 +37,52 @@ jQuery(function ($) {
     });
   }
 
-  /* =========================
-     INIT
-  ========================= */
+  function debounceReload() {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(function () {
+      carregarPartitures(true);
+    }, 250);
+  }
+
+  // INIT
   carregarPartitures(true);
 
-  /* =========================
-     CERCA (OBRA / AUTOR)
-  ========================= */
-  $form.on("keyup", 'input[name="search"]', function () {
+  // inputs text
+  $form.on("keyup", 'input[name="search"]', debounceReload);
+  $form.on("keyup", 'input[name="numero"]', debounceReload);
+  $form.on("keyup", 'input[name="llibre_txt"]', debounceReload);
+
+  // ✅ ANY exact (input + change)
+  $form.on("input", 'input[name="any"]', debounceReload);
+  $form.on("change", 'input[name="any"]', function () {
     carregarPartitures(true);
   });
 
-  /* =========================
-     FILTRES (TAXONOMIES)
-  ========================= */
-  $form.on("change", "select", function () {
-    carregarPartitures(true);
-  });
+  // selects
+  $form.on(
+    "change",
+    'select[name="genere"], select[name="tradicional"]',
+    function () {
+      carregarPartitures(true);
+    },
+  );
 
-  /* =========================
-     PAGINACIÓ AJAX
-  ========================= */
+  // paginació
   $(document).on("click", ".pagination-next", function () {
-    let page = parseInt($form.find('input[name="paged"]').val());
+    let page = parseInt($form.find('input[name="paged"]').val(), 10);
     $form.find('input[name="paged"]').val(page + 1);
-    carregarPartitures();
+    carregarPartitures(false);
   });
 
   $(document).on("click", ".pagination-prev", function () {
-    let page = parseInt($form.find('input[name="paged"]').val());
+    let page = parseInt($form.find('input[name="paged"]').val(), 10);
     if (page > 1) {
       $form.find('input[name="paged"]').val(page - 1);
-      carregarPartitures(true);
+      carregarPartitures(false);
     }
   });
 
-  /* =========================
-     MODAL PDF
-  ========================= */
+  // modal PDF
   $(document).on("click", ".btn-preview", function (e) {
     e.preventDefault();
     const pdf = $(this).data("pdf");
@@ -99,6 +95,7 @@ jQuery(function ($) {
     $("#pdf-modal").removeClass("open");
   });
 
+  // ordre A-Z (si el tornes a activar)
   $("#btn-order-title").on("click", function () {
     const $orderInput = $form.find('input[name="order"]');
     const current = $orderInput.val();
@@ -112,7 +109,6 @@ jQuery(function ($) {
     }
 
     $form.find('input[name="orderby"]').val("title");
-
     carregarPartitures(true);
   });
-}); //end listener
+});

@@ -3,16 +3,27 @@ Theme Name: Kadence Coral
 Template: kadence
 */
 
+:root {
+  /* Marca (principal) */
+  --cm-brand: #2b824d;
+
+  /* Variants útils */
+  --cm-brand-contrast: #ffffff; /* text sobre fons verd */
+  --cm-brand-soft: color-mix(
+    in srgb,
+    var(--cm-brand) 12%,
+    white
+  ); /* fons suau */
+  --cm-brand-strong: color-mix(
+    in srgb,
+    var(--cm-brand) 85%,
+    black
+  ); /* més fosc */
+}
+
 /* Custom styles for Kadence Coral child theme */
 body {
   color: #333333; /* Dark text color for readability */
-}
-
-.entry-header {
-  min-height: 50px !important;
-}
-.entry-header h1 {
-  font-size: 1.5rem !important;
 }
 
 .partitures-logout {
@@ -24,7 +35,7 @@ body {
   padding: 0.45rem 1.1rem;
   border-radius: 999px;
   border: 1px solid #ddd;
-  background: #d00909;
+  background: var(--cm-brand);
   font-weight: 600;
   font-size: 0.9rem;
   color: #fafafa;
@@ -34,7 +45,7 @@ body {
 
 .btn-logout:hover {
   background: #f3f3f3;
-  color: #d00909;
+  color: var(--cm-brand);
 }
 
 /* login button  */
@@ -44,7 +55,7 @@ body {
   align-items: center;
   gap: 0.45rem;
 
-  background: #711c1c;
+  background: var(--cm-brand);
   color: #fff !important;
 
   padding: 0.45rem 1.1rem;
@@ -54,12 +65,14 @@ body {
   font-size: 0.9rem;
   text-decoration: none;
 
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
 }
 
 /* HOVER */
 #menu-item-49 > a:hover {
-  background: #3d0505;
+  background: var(--cm-brand-strong);
   transform: translateY(-1px);
 }
 
@@ -76,4 +89,34 @@ body {
   background-position: center;
 
   filter: invert(1); /* fa la icona blanca */
+}
+
+.site-main-header-wrap .site-header-row-container-inner > .site-container {
+  padding: 10px 0px !important;
+}
+
+.entry-content-wrap {
+  padding-top: 0px !important;
+}
+.entry-title {
+  color: var(--cm-brand-contrast);
+}
+
+/* HEADER - CUSTOM BUTTON SHORTCODE  */
+.coral-access-btn {
+  background-color: var(--cm-brand);
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  border-radius: 3px;
+  font-size: 1.1rem;
+  text-decoration: none !important;
+}
+
+.coral-access-btn:hover {
+  background-color: var(--cm-brand-soft);
+  color: var(--cm-brand);
+}
+.coral-access-btn--logout:hover {
+  background-color: #ee9696;
+  color: var(--cm-brand-contrast);
 }
