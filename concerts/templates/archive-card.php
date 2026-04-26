@@ -57,7 +57,9 @@ if ( $data_raw ) {
 					<?php echo esc_html( $data_formatejada ); ?>
 
 					<?php if ( $hora && $hora !== '00:00' ) : ?>
-						<span><?php echo esc_html( $hora ); ?></span>
+						<span>
+							<?php echo esc_html( $hora ); ?>
+						</span>
 					<?php endif; ?>
 				</p>
 			<?php endif; ?>

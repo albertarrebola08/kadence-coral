@@ -5,6 +5,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Shortcode: [concerts_arxiu]
+ *
+ * Mostra un arxiu de concerts amb:
+ * - Filtre automàtic per any
+ * - Grid de cards
+ * - Paginació
  */
 function coral_concerts_arxiu_shortcode( $atts ) {
 
@@ -17,7 +22,7 @@ function coral_concerts_arxiu_shortcode( $atts ) {
 
 	$atts = shortcode_atts(
 		[
-			'per_page' => 10,
+			'per_page' => 15,
 		],
 		$atts,
 		'concerts_arxiu'
@@ -26,65 +31,35 @@ function coral_concerts_arxiu_shortcode( $atts ) {
 	$per_page = absint( $atts['per_page'] );
 
 	if ( ! $per_page ) {
-		$per_page = 10;
+		$per_page = 15;
 	}
 
-	$paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
+	$paged = 1;
+
+	if ( get_query_var( 'paged' ) ) {
+		$paged = absint( get_query_var( 'paged' ) );
+	}
 
 	if ( isset( $_GET['concert_page'] ) ) {
 		$paged = absint( $_GET['concert_page'] );
 	}
 
-	$estat = isset( $_GET['estat'] ) ? sanitize_text_field( $_GET['estat'] ) : 'tots';
-	$zona = isset( $_GET['zona'] ) ? sanitize_text_field( $_GET['zona'] ) : 'totes';
-
-	$avui = current_time( 'Y-m-d H:i:s' );
+	$any = isset( $_GET['any'] ) ? sanitize_text_field( $_GET['any'] ) : 'tots';
 
 	$meta_query = [
 		'relation' => 'AND',
 	];
 
-	if ( $estat === 'proxims' ) {
+	if ( $any !== 'tots' ) {
 		$meta_query[] = [
 			'key' => 'dades_dels_concerts_data_i_hora',
-			'value' => $avui,
-			'compare' => '>=',
+			'value' => [
+				$any . '-01-01 00:00:00',
+				$any . '-12-31 23:59:59',
+			],
+			'compare' => 'BETWEEN',
 			'type' => 'DATETIME',
 		];
-	}
-
-	if ( $estat === 'passats' ) {
-		$meta_query[] = [
-			'key' => 'dades_dels_concerts_data_i_hora',
-			'value' => $avui,
-			'compare' => '<',
-			'type' => 'DATETIME',
-		];
-	}
-
-	/**
-	 * Filtre per zona.
-	 * Com que la zona està al CPT lloc_cantat, primer busquem els llocs d'aquella zona
-	 * i després filtrem concerts que tinguin ubicacio_mapa dins aquests IDs.
-	 */
-	if ( $zona !== 'totes' ) {
-
-		$llocs_ids = coral_get_llocs_ids_by_zona( $zona );
-
-		if ( ! empty( $llocs_ids ) ) {
-			$meta_query[] = [
-				'key' => 'dades_dels_concerts_ubicacio_mapa',
-				'value' => $llocs_ids,
-				'compare' => 'IN',
-			];
-		} else {
-			// Forcem que no retorni res si no hi ha llocs d'aquesta zona.
-			$meta_query[] = [
-				'key' => 'dades_dels_concerts_ubicacio_mapa',
-				'value' => '-1',
-				'compare' => '=',
-			];
-		}
 	}
 
 	$query_args = [
@@ -103,6 +78,8 @@ function coral_concerts_arxiu_shortcode( $atts ) {
 
 	$query = new WP_Query( $query_args );
 
+	$years = coral_get_concert_years();
+
 	ob_start();
 	?>
 
@@ -111,21 +88,18 @@ function coral_concerts_arxiu_shortcode( $atts ) {
 		<form class="concerts-archive-filters" method="get">
 
 			<div class="concerts-filter">
-				<label for="concert-estat">Tipus</label>
-				<select id="concert-estat" name="estat">
-					<option value="tots" <?php selected( $estat, 'tots' ); ?>>Tots</option>
-					<option value="proxims" <?php selected( $estat, 'proxims' ); ?>>Pròxims</option>
-					<option value="passats" <?php selected( $estat, 'passats' ); ?>>Passats</option>
-				</select>
-			</div>
+				<label for="concert-any">Filtrar per any</label>
 
-			<div class="concerts-filter">
-				<label for="concert-zona">Zona</label>
-				<select id="concert-zona" name="zona">
-					<option value="totes" <?php selected( $zona, 'totes' ); ?>>Totes</option>
-					<option value="catalunya" <?php selected( $zona, 'catalunya' ); ?>>Catalunya</option>
-					<option value="resta_espanya" <?php selected( $zona, 'resta_espanya' ); ?>>Resta d'Espanya</option>
-					<option value="resta_del_mon" <?php selected( $zona, 'resta_del_mon' ); ?>>Resta del món</option>
+				<select id="concert-any" name="any">
+					<option value="tots" <?php selected( $any, 'tots' ); ?>>
+						Tots els anys
+					</option>
+
+					<?php foreach ( $years as $year ) : ?>
+						<option value="<?php echo esc_attr( $year ); ?>" <?php selected( $any, $year ); ?>>
+							<?php echo esc_html( $year ); ?>
+						</option>
+					<?php endforeach; ?>
 				</select>
 			</div>
 
@@ -165,8 +139,7 @@ function coral_concerts_arxiu_shortcode( $atts ) {
 						$url = add_query_arg(
 							[
 								'concert_page' => $i,
-								'estat' => $estat,
-								'zona' => $zona,
+								'any' => $any,
 							],
 							get_permalink()
 						);
@@ -185,7 +158,7 @@ function coral_concerts_arxiu_shortcode( $atts ) {
 		<?php else : ?>
 
 			<p class="concerts-archive-empty">
-				No s’han trobat concerts amb aquests filtres.
+				No s’han trobat concerts per a aquest any.
 			</p>
 
 		<?php endif; ?>
@@ -200,25 +173,65 @@ function coral_concerts_arxiu_shortcode( $atts ) {
 add_shortcode( 'concerts_arxiu', 'coral_concerts_arxiu_shortcode' );
 
 /**
- * Retorna IDs de lloc_cantat filtrats per zona.
+ * Retorna els anys disponibles segons les dates dels concerts.
+ *
+ * Així no cal tocar codi quan arribin 2027, 2028, etc.
+ * Si existeix un concert amb data d'aquell any, apareix al filtre.
  */
-function coral_get_llocs_ids_by_zona( $zona ) {
+function coral_get_concert_years() {
 
 	$query = new WP_Query(
 		[
-			'post_type' => 'lloc_cantat',
+			'post_type' => 'concert',
 			'posts_per_page' => -1,
 			'post_status' => 'publish',
 			'fields' => 'ids',
+			'meta_key' => 'dades_dels_concerts_data_i_hora',
+			'orderby' => 'meta_value',
+			'order' => 'DESC',
 			'meta_query' => [
 				[
-					'key' => 'informacio_llocs_on_hem_cantat_zona',
-					'value' => $zona,
-					'compare' => '=',
+					'key' => 'dades_dels_concerts_data_i_hora',
+					'compare' => 'EXISTS',
 				],
 			],
 		]
 	);
 
-	return $query->posts;
+	$years = [];
+
+	if ( $query->have_posts() ) {
+		foreach ( $query->posts as $post_id ) {
+
+			$dades = get_field( 'dades_dels_concerts', $post_id );
+
+			if ( ! is_array( $dades ) ) {
+				continue;
+			}
+
+			$data_raw = $dades['data_i_hora'] ?? '';
+
+			if ( ! $data_raw ) {
+				continue;
+			}
+
+			try {
+				$date = new DateTime( $data_raw );
+				$year = $date->format( 'Y' );
+
+				if ( $year ) {
+					$years[] = $year;
+				}
+			} catch (Exception $e) {
+				continue;
+			}
+		}
+	}
+
+	wp_reset_postdata();
+
+	$years = array_unique( $years );
+	rsort( $years, SORT_NUMERIC );
+
+	return $years;
 }
