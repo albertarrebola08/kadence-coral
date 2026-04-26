@@ -374,7 +374,7 @@
 
 /* grid archive concerts amb paginacio i filtres */
 /* =====================================================
-   ARXIU DE CONCERTS
+   ARXIU DE CONCERTS - GRID COMPACTE
 ===================================================== */
 
 .concerts-archive {
@@ -386,10 +386,10 @@
   display: flex;
   flex-wrap: wrap;
   align-items: end;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  padding: 1.2rem;
-  border-radius: 16px;
+  gap: 0.8rem;
+  margin-bottom: 1.8rem;
+  padding: 1rem;
+  border-radius: 10px;
   background: #f9fafb;
   border: 1px solid #e5e7eb;
 }
@@ -397,75 +397,84 @@
 .concerts-filter {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.3rem;
 }
 
 .concerts-filter label {
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: #374151;
 }
 
 .concerts-filter select {
-  min-width: 180px;
-  padding: 0.65rem 0.8rem;
+  min-width: 150px;
+  padding: 0.55rem 0.7rem;
   border: 1px solid #d1d5db;
-  border-radius: 10px;
+  border-radius: 8px;
   background: #ffffff;
   color: #1f2933;
+  font-size: 0.9rem;
 }
 
 .concerts-filter-button {
-  padding: 0.7rem 1.1rem;
+  padding: 0.58rem 1rem;
   border: 0;
   border-radius: 999px;
   background: var(--cm-brand-strong);
   color: #ffffff;
+  font-size: 0.9rem;
   font-weight: 800;
   cursor: pointer;
 }
 
 .concerts-filter-reset {
-  padding: 0.7rem 0.2rem;
+  padding: 0.58rem 0.2rem;
   color: #6b7280;
+  font-size: 0.9rem;
   font-weight: 700;
   text-decoration: underline;
 }
 
-/* Grid */
+/* Grid: pensat perquè hi càpiguen 5 cards en amplades grans */
 .concerts-archive-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.4rem;
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  gap: 1rem;
 }
 
-/* Card petita */
+/* Card compacta */
 .concert-archive-card {
+  position: relative;
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 8px;
   overflow: hidden;
   border: 1px solid #e5e7eb;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
 }
 
 .concert-archive-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.13);
+  transform: translateY(-3px);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.11);
 }
 
 .concert-archive-card__link {
+  position: relative;
   display: flex;
   flex-direction: column;
+  min-height: 230px;
   height: 100%;
   color: inherit;
   text-decoration: none;
 }
 
+/* Imatge més baixa */
 .concert-archive-card__image {
-  height: 150px;
+  height: 105px;
   overflow: hidden;
   background: #e5e7eb;
 }
@@ -475,56 +484,81 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.35s ease;
 }
 
-/* Contingut card */
+.concert-archive-card:hover .concert-archive-card__image img {
+  transform: scale(1.04);
+}
+
+/* Contingut compacte */
 .concert-archive-card__content {
-  padding: 1.2rem;
+  padding: 0.85rem 0.9rem 2.2rem;
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.45rem;
   flex: 1;
 }
 
 .concert-archive-card__date {
   margin: 0;
   color: var(--cm-brand-strong);
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   font-weight: 800;
+  line-height: 1.25;
 }
 
 .concert-archive-card__date span {
+  margin-left: 0.25rem;
   color: #6b7280;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .concert-archive-card__title {
   margin: 0;
-  color: #1f2933;
-  font-size: 1.15rem;
-  line-height: 1.25;
-}
-
-.concert-archive-card__place {
-  margin: 0;
-  color: #4b5563;
-  font-size: 0.95rem;
-  line-height: 1.45;
-}
-
-.concert-archive-card__more {
-  margin-top: auto;
-  padding-top: 0.6rem;
-  color: var(--cm-brand-strong);
-  font-size: 0.9rem;
+  color: #111827;
+  font-size: 0.98rem;
+  line-height: 1.18;
   font-weight: 800;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Fletxa absoluta */
+.concert-archive-card__arrow {
+  position: absolute;
+  right: 0.85rem;
+  bottom: 0.75rem;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cm-brand-strong);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1;
+  transform: translateX(0);
+  transition:
+    transform 0.22s ease,
+    background-color 0.22s ease;
+}
+
+.concert-archive-card:hover .concert-archive-card__arrow {
+  transform: translateX(4px);
 }
 
 /* Paginació */
 .concerts-pagination {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.45rem;
   margin-top: 2rem;
 }
 
@@ -532,11 +566,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 38px;
-  height: 38px;
+  min-width: 34px;
+  height: 34px;
   border-radius: 999px;
   background: #f3f4f6;
   color: #1f2933;
+  font-size: 0.9rem;
   font-weight: 700;
   text-decoration: none;
 }
@@ -548,9 +583,22 @@
 
 .concerts-archive-empty {
   padding: 1rem 1.2rem;
-  border-radius: 12px;
+  border-radius: 10px;
   background: #f9fafb;
   color: #4b5563;
+}
+
+/* Responsive */
+@media (min-width: 1280px) {
+  .concerts-archive-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .concerts-archive-grid {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  }
 }
 
 @media (max-width: 700px) {
@@ -562,5 +610,32 @@
   .concerts-filter select,
   .concerts-filter-button {
     width: 100%;
+  }
+
+  .concerts-archive-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .concert-archive-card__link {
+    min-height: 215px;
+  }
+
+  .concert-archive-card__image {
+    height: 95px;
+  }
+
+  .concert-archive-card__content {
+    padding: 0.75rem 0.75rem 2rem;
+  }
+
+  .concert-archive-card__title {
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .concerts-archive-grid {
+    grid-template-columns: 1fr;
   }
 }

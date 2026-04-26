@@ -17,7 +17,7 @@ function coral_concerts_arxiu_shortcode( $atts ) {
 
 	$atts = shortcode_atts(
 		[
-			'per_page' => 9,
+			'per_page' => 10,
 		],
 		$atts,
 		'concerts_arxiu'
@@ -26,7 +26,7 @@ function coral_concerts_arxiu_shortcode( $atts ) {
 	$per_page = absint( $atts['per_page'] );
 
 	if ( ! $per_page ) {
-		$per_page = 9;
+		$per_page = 10;
 	}
 
 	$paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
