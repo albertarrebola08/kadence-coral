@@ -1,0 +1,117 @@
+/* =====================================================
+   ON HEM CANTAT - MAPA
+===================================================== */
+
+.on-hem-cantat-map-wrap {
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #e5e7eb;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.14);
+}
+
+.on-hem-cantat-map-wrap .leaflet-container {
+  min-height: 560px;
+}
+
+.on-hem-cantat-empty {
+  margin: 0;
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  background: #f9fafb;
+  color: #4b5563;
+}
+
+/* =====================================================
+   POPUP
+===================================================== */
+
+.on-hem-cantat-popup-content {
+  min-width: 240px;
+  max-width: 340px;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.on-hem-cantat-popup-title {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #1f2933;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.on-hem-cantat-popup-municipi {
+  margin: 0.25rem 0 0.5rem;
+  color: #4b5563;
+  font-weight: 600;
+}
+
+.on-hem-cantat-popup-desc {
+  margin-top: 0.5rem;
+  color: #4b5563;
+}
+
+.on-hem-cantat-popup-desc p {
+  margin: 0.35rem 0;
+}
+
+.on-hem-cantat-popup-concerts {
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.on-hem-cantat-popup-concerts h4 {
+  margin: 0 0 0.45rem;
+  color: #1f2933;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.on-hem-cantat-popup-concerts ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.on-hem-cantat-popup-concerts li {
+  margin-bottom: 0.4rem;
+}
+
+.on-hem-cantat-popup-concerts a {
+  color: var(--cm-brand-strong);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.on-hem-cantat-popup-concerts span {
+  color: #6b7280;
+  font-size: 0.88rem;
+}
+
+.on-hem-cantat-popup-no-concerts {
+  margin-top: 0.75rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 700px) {
+  .on-hem-cantat-map-wrap {
+    border-radius: 16px;
+  }
+
+  .on-hem-cantat-map-wrap .leaflet-container {
+    min-height: 420px;
+  }
+
+  .on-hem-cantat-popup-content {
+    min-width: 210px;
+    max-width: 280px;
+  }
+}

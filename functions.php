@@ -201,4 +201,10 @@ add_shortcode( 'coral_calendari_pdf', function () {
 	return $html;
 } );
 
+//FUNCIONALITAT MAPA INTERACTIU: ON HEM CANTAT
 
+require_once get_stylesheet_directory() . '/concerts/on-hem-cantat/on-hem-cantat.php';
+
+//archive del concerts amb filtres grid paginació
+
+require_once get_stylesheet_directory() . '/concerts/concerts-archive.php';

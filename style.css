@@ -25,7 +25,12 @@ Template: kadence
 body {
   color: #333333; /* Dark text color for readability */
 }
-
+.entry-header {
+  min-height: 100px !important;
+}
+.entry-content-wrap {
+  padding: 2rem 2rem 0 2rem;
+}
 .partitures-logout {
   margin-bottom: 1rem;
 }
@@ -119,4 +124,33 @@ body {
 .coral-access-btn--logout:hover {
   background-color: #ee9696;
   color: var(--cm-brand-contrast);
+}
+
+/* quitar un margin de page ressenyes de concerts */
+.page-id-152 #primary {
+  margin-top: 0px !important;
+}
+
+.page-id-148 #primary {
+  margin-top: 0px !important;
+}
+.page-id-150 #primary {
+  margin-top: 0px !important;
+}
+.page-id-134 #primary {
+  margin-top: 0px !important;
+}
+.page-id-140 #primary {
+  margin-top: 0px !important;
+}
+.page-id-142 #primary {
+  margin-top: 0px !important;
+}
+.page-id-136 #primary {
+  margin-top: 0px !important;
+}
+
+/* HOME STYLES */
+.concerts-home {
+  padding-top: 0px !important;
 }

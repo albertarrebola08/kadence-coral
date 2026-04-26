@@ -180,7 +180,7 @@ function coral_get_partitures() {
 
 	$any = isset( $_POST['any'] ) ? intval( $_POST['any'] ) : 0;
 
-	$per_page = 12;
+	$per_page = 6;
 
 	/* =========================
 	   TAX QUERY (AND)
