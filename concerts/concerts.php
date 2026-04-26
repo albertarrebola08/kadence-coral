@@ -50,7 +50,7 @@ function coral_concerts_proxims_shortcode() {
 	} else {
 
 		echo '<section class="concerts-home">';
-		echo '<h2 class="concerts-title">Pròxims concerts</h2>';
+
 		echo '<div class="concerts-grid">';
 
 		while ( $query->have_posts() ) {
