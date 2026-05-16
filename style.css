@@ -149,8 +149,15 @@ body {
 .page-id-136 #primary {
   margin-top: 0px !important;
 }
+.page-id-136 #primary {
+  margin-top: 0px !important;
+}
 
 /* HOME STYLES */
 .concerts-home {
   padding-top: 0px !important;
+}
+.page-id-146 .content-bg {
+  background-color: inherit !important;
+  box-shadow: none !important;
 }
