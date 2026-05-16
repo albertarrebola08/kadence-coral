@@ -47,10 +47,10 @@ if ( $data_raw ) {
 ?>
 
 <article class="concert-card">
-
-	<?php if ( $imatge ) : ?>
-		<div class="concert-image">
-			<img src="<?php echo esc_url( $imatge ); ?>" alt="<?php the_title_attribute(); ?>">
+	<a href="<?php the_permalink(); ?>" style="text-decoration: none;">
+		<?php if ( $imatge ) : ?>
+			<div class="concert-image">
+				<img src="<?php echo esc_url( $imatge ); ?>" alt="<?php the_title_attribute(); ?>">
 
 				<?php if ( $data_raw && isset( $date ) ) : ?>
 					<div class="concert-date-badge">
@@ -63,8 +63,8 @@ if ( $data_raw ) {
 
 		<div class="concert-content">
 
-		<h3 class="concert-title"><?php the_title(); ?>
-		</h3>
+			<h3 class="concert-title"><?php the_title(); ?>
+			</h3>
 
 			<?php if ( $hora ) : ?>
 				<div class="concert-hour">
