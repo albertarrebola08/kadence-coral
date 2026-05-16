@@ -16,7 +16,9 @@ wp_enqueue_style(
 	'1.0'
 );
 
-$dades = get_field( 'dades_dels_concerts' );
+$concert_id = get_queried_object_id();
+$dades = get_field( 'dades_dels_concerts', $concert_id );
+$concert_title = coral_get_concert_display_title( $concert_id, $dades );
 
 $imatge = '';
 $data_raw = '';
@@ -68,14 +70,14 @@ if ( $data_raw ) {
 
 			<?php if ( $imatge ) : ?>
 				<div class="concert-single-hero__image">
-					<img src="<?php echo esc_url( $imatge ); ?>" alt="<?php the_title_attribute(); ?>">
+					<img src="<?php echo esc_url( $imatge ); ?>" alt="<?php echo esc_attr( $concert_title ); ?>">
 				</div>
 			<?php endif; ?>
 
 			<div class="concert-single-hero__content">
 				<p class="concert-single-kicker">Concert</p>
 
-				<h1 class="concert-single-title"><?php the_title(); ?></h1>
+				<h1 class="concert-single-title"><?php echo esc_html( $concert_title ); ?></h1>
 
 				<div class="concert-single-meta">
 

@@ -9,6 +9,8 @@ $dades = get_field( 'dades_dels_concerts' );
 if ( ! is_array( $dades ) )
 	return;
 
+$concert_title = coral_get_concert_display_title( get_the_ID(), $dades );
+
 $imatge = $dades['imatge'] ?? '';
 $data_raw = $dades['data_i_hora'] ?? '';
 $ubicacio = $dades['ubicacio'] ?? '';
@@ -48,7 +50,7 @@ if ( $data_raw ) {
 
 	<?php if ( $imatge ) : ?>
 		<div class="concert-image">
-			<img src="<?php echo esc_url( $imatge ); ?>" alt="<?php the_title_attribute(); ?>">
+			<img src="<?php echo esc_url( $imatge ); ?>" alt="<?php echo esc_attr( $concert_title ); ?>">
 
 			<?php if ( $data_raw && isset( $date ) ) : ?>
 				<div class="concert-date-badge">
@@ -61,7 +63,7 @@ if ( $data_raw ) {
 
 	<div class="concert-content">
 
-		<h3 class="concert-title"><?php the_title(); ?>
+		<h3 class="concert-title"><?php echo esc_html( $concert_title ); ?>
 		</h3>
 
 		<?php if ( $hora ) : ?>

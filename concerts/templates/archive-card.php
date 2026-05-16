@@ -4,6 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $dades = get_field( 'dades_dels_concerts' );
+$concert_title = coral_get_concert_display_title( get_the_ID(), $dades );
 
 if ( ! is_array( $dades ) ) {
 	return;
@@ -13,12 +14,12 @@ $imatge = $dades['imatge'] ?? '';
 $data_raw = $dades['data_i_hora'] ?? '';
 
 $imatge_url = '';
-$imatge_alt = get_the_title();
+$imatge_alt = $concert_title;
 
 if ( $imatge ) {
 	if ( is_array( $imatge ) ) {
 		$imatge_url = $imatge['url'] ?? '';
-		$imatge_alt = $imatge['alt'] ?? get_the_title();
+		$imatge_alt = $imatge['alt'] ?? $concert_title;
 	} else {
 		$imatge_url = $imatge;
 	}
@@ -42,7 +43,7 @@ if ( $data_raw ) {
 <article class="concert-archive-card">
 
 	<a class="concert-archive-card__link" href="<?php the_permalink(); ?>"
-		aria-label="<?php echo esc_attr( 'Veure concert: ' . get_the_title() ); ?>">
+		aria-label="<?php echo esc_attr( 'Veure concert: ' . $concert_title ); ?>">
 
 		<?php if ( $imatge_url ) : ?>
 			<div class="concert-archive-card__image">
@@ -65,7 +66,7 @@ if ( $data_raw ) {
 			<?php endif; ?>
 
 			<h3 class="concert-archive-card__title">
-				<?php the_title(); ?>
+				<?php echo esc_html( $concert_title ); ?>
 			</h3>
 
 		</div>
