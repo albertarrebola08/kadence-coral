@@ -2,6 +2,24 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit;
 
+function coral_pdf_modal_html(): string {
+	static $rendered = false;
+
+	if ( $rendered ) {
+		return '';
+	}
+
+	$rendered = true;
+
+	return '<div id="pdf-modal" class="pdf-modal" aria-hidden="true">
+		<div id="pdf-modal-backdrop" class="pdf-modal-backdrop"></div>
+		<div class="pdf-modal-panel">
+			<button id="pdf-modal-close" class="pdf-modal-close" type="button">Tancar</button>
+			<iframe src="" title="Preview PDF"></iframe>
+		</div>
+	</div>';
+}
+
 /* =====================================================
  * SHORTCODE [partitures]
  * Sidebar esquerra + grid dreta
@@ -17,7 +35,7 @@ function coral_partitures_shortcode() {
 		'coral-partitures',
 		get_stylesheet_directory_uri() . '/partitures/partitures.css',
 		[],
-		'1.2'
+		'1.4'
 	);
 
 	// JS
@@ -25,7 +43,7 @@ function coral_partitures_shortcode() {
 		'coral-partitures',
 		get_stylesheet_directory_uri() . '/partitures/partitures.js',
 		[ 'jquery' ],
-		'1.2',
+		'1.4',
 		true
 	);
 
@@ -130,14 +148,7 @@ function coral_partitures_shortcode() {
 					<p>Carregant partitures…</p>
 				</div>
 
-				<!-- MODAL PDF -->
-				<div id="pdf-modal" class="pdf-modal">
-					<div id="pdf-modal-backdrop" class="pdf-modal-backdrop"></div>
-					<div class="pdf-modal-panel">
-						<button id="pdf-modal-close" class="pdf-modal-close" type="button">Tancar</button>
-						<iframe src="" title="Preview PDF"></iframe>
-					</div>
-				</div>
+				<?php echo coral_pdf_modal_html(); ?>
 
 			</main>
 
@@ -368,10 +379,30 @@ function coral_get_partitures() {
 		echo '<div class="partitures-pagination">';
 
 		if ( $paged > 1 ) {
-			echo '<button class="pagination-prev" type="button">← Anterior</button>';
+			printf(
+				'<button type="button" class="partitures-page-link" data-page="%1$d">Anterior</button>',
+				(int) $paged - 1
+			);
 		}
+
+		for ( $i = 1; $i <= $total_pages; $i++ ) {
+			if ( $i === 1 || $i === $total_pages || abs( $i - $paged ) <= 2 ) {
+				printf(
+					'<button type="button" class="partitures-page-link%1$s" data-page="%2$d">%3$d</button>',
+					$i === $paged ? ' is-active' : '',
+					(int) $i,
+					(int) $i
+				);
+			} elseif ( abs( $i - $paged ) === 3 ) {
+				echo '<span class="partitures-page-dots">...</span>';
+			}
+		}
+
 		if ( $paged < $total_pages ) {
-			echo '<button class="pagination-next" type="button">Següent →</button>';
+			printf(
+				'<button type="button" class="partitures-page-link" data-page="%1$d">Seguent</button>',
+				(int) $paged + 1
+			);
 		}
 
 		echo '</div>';

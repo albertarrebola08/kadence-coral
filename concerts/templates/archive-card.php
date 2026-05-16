@@ -4,7 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $dades = get_field( 'dades_dels_concerts' );
-$concert_title = coral_get_concert_display_title( get_the_ID(), $dades );
+$post_id = get_the_ID();
+$concert_title = coral_get_concert_display_title( $post_id, $dades );
 
 if ( ! is_array( $dades ) ) {
 	return;
@@ -20,10 +21,24 @@ if ( $imatge ) {
 	if ( is_array( $imatge ) ) {
 		$imatge_url = $imatge['url'] ?? '';
 		$imatge_alt = $imatge['alt'] ?? $concert_title;
+	} elseif ( is_numeric( $imatge ) ) {
+		$imatge_url = wp_get_attachment_image_url( (int) $imatge, 'medium_large' );
+		$imatge_alt = get_post_meta( (int) $imatge, '_wp_attachment_image_alt', true ) ?: $concert_title;
 	} else {
 		$imatge_url = $imatge;
 	}
 }
+
+$gradient_seed = abs( crc32( $post_id . '|' . $concert_title ) );
+$gradient_hue = $gradient_seed % 360;
+$gradient_angle = 120 + ( $gradient_seed % 80 );
+$gradient_style = sprintf(
+	'--archive-gradient-angle:%1$ddeg;--archive-gradient-a:hsl(%2$d 58%% 34%%);--archive-gradient-b:hsl(%3$d 72%% 44%%);--archive-gradient-c:hsl(%4$d 66%% 70%%);',
+	$gradient_angle,
+	$gradient_hue,
+	( $gradient_hue + 42 ) % 360,
+	( $gradient_hue + 190 ) % 360
+);
 
 $data_formatejada = '';
 $hora = '';
@@ -49,6 +64,9 @@ if ( $data_raw ) {
 			<div class="concert-archive-card__image">
 				<img src="<?php echo esc_url( $imatge_url ); ?>" alt="<?php echo esc_attr( $imatge_alt ); ?>">
 			</div>
+		<?php else : ?>
+			<div class="concert-archive-card__placeholder" style="<?php echo esc_attr( $gradient_style ); ?>"
+				aria-hidden="true"></div>
 		<?php endif; ?>
 
 		<div class="concert-archive-card__content">

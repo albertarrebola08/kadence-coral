@@ -7,6 +7,26 @@ jQuery(function ($) {
   let isLoading = false;
   let typingTimer = null;
 
+  // modal PDF compartit per partitures i fitxes
+  $(document).on("click", ".btn-preview", function (e) {
+    e.preventDefault();
+    const pdf = $(this).data("pdf");
+    if (!pdf || !$("#pdf-modal").length) {
+      return;
+    }
+    $("#pdf-modal iframe").attr("src", pdf);
+    $("#pdf-modal").addClass("open").attr("aria-hidden", "false");
+  });
+
+  $(document).on("click", "#pdf-modal-close, #pdf-modal-backdrop", function () {
+    $("#pdf-modal iframe").attr("src", "");
+    $("#pdf-modal").removeClass("open").attr("aria-hidden", "true");
+  });
+
+  if (!$form.length || !$grid.length) {
+    return;
+  }
+
   function carregarPartitures(reset = false) {
     if (isLoading) return;
     isLoading = true;
@@ -67,32 +87,15 @@ jQuery(function ($) {
     },
   );
 
-  // paginació
-  $(document).on("click", ".pagination-next", function () {
-    let page = parseInt($form.find('input[name="paged"]').val(), 10);
-    $form.find('input[name="paged"]').val(page + 1);
-    carregarPartitures(false);
-  });
-
-  $(document).on("click", ".pagination-prev", function () {
-    let page = parseInt($form.find('input[name="paged"]').val(), 10);
-    if (page > 1) {
-      $form.find('input[name="paged"]').val(page - 1);
-      carregarPartitures(false);
+  // paginacio
+  $(document).on("click", ".partitures-page-link[data-page]", function () {
+    const page = parseInt($(this).data("page"), 10);
+    if (!page || page < 1 || $(this).hasClass("is-active")) {
+      return;
     }
-  });
 
-  // modal PDF
-  $(document).on("click", ".btn-preview", function (e) {
-    e.preventDefault();
-    const pdf = $(this).data("pdf");
-    $("#pdf-modal iframe").attr("src", pdf);
-    $("#pdf-modal").addClass("open");
-  });
-
-  $("#pdf-modal-close, #pdf-modal-backdrop").on("click", function () {
-    $("#pdf-modal iframe").attr("src", "");
-    $("#pdf-modal").removeClass("open");
+    $form.find('input[name="paged"]').val(page);
+    carregarPartitures(false);
   });
 
   // ordre A-Z (si el tornes a activar)

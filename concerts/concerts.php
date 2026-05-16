@@ -11,7 +11,7 @@ function coral_concerts_proxims_shortcode() {
 		'coral-concerts',
 		get_stylesheet_directory_uri() . '/concerts/concerts.css',
 		[],
-		'1.0'
+		'1.4'
 	);
 
 	// Data actual (necessària!)

@@ -64,6 +64,13 @@ if ( $any_inici !== '' && $any_fi !== '' ) {
 		<?php endif; ?>
 	</header>
 
+	<?php if ( $pdf && ! empty( $pdf['url'] ) ) : ?>
+		<div class="document-preview">
+			<iframe src="<?php echo esc_url( $pdf['url'] ); ?>#toolbar=0&navpanes=0&zoom=150" loading="lazy"
+				title="<?php echo esc_attr( 'Vista prèvia de ' . get_the_title() ); ?>"></iframe>
+		</div>
+	<?php endif; ?>
+
 	<div class="partitura-body">
 
 		<?php if ( $autor ) : ?>
@@ -118,7 +125,7 @@ if ( $any_inici !== '' && $any_fi !== '' ) {
 			<a class="btn-preview" href="#" data-pdf="<?php echo esc_url( $pdf['url'] ); ?>">
 				Previsualitzar
 			</a>
-			<a class="btn-pdf" href="<?php echo esc_url( $pdf['url'] ); ?>" target="_blank" rel="noopener">
+			<a class="btn-pdf" href="<?php echo esc_url( $pdf['url'] ); ?>" target="_blank" rel="noopener" download>
 				Descarregar PDF
 			</a>
 		</div>

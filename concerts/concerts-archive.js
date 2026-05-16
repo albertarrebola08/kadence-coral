@@ -82,7 +82,7 @@ jQuery(function ($) {
       },
       success: function (response) {
         if (!response || !response.success) {
-          $results.html("<p class=\"concerts-archive-empty\">No s’han pogut actualitzar els concerts.</p>");
+          $results.html("<p class=\"concerts-archive-empty\">No s'han pogut actualitzar els concerts.</p>");
           return;
         }
 
@@ -100,13 +100,13 @@ jQuery(function ($) {
     });
   }
 
-  // Filtrat automàtic d'any
+  // Filtrat automatic d'any
   $form.on("change", "#concert-any", function () {
     setPage(1);
     carregarConcerts();
   });
 
-  // Paginació AJAX
+  // Paginacio AJAX
   $results.on("click", ".concerts-pagination a[data-page]", function (e) {
     e.preventDefault();
     const page = parseInt($(this).data("page"), 10);
@@ -114,14 +114,6 @@ jQuery(function ($) {
       return;
     }
     setPage(page);
-    carregarConcerts();
-  });
-
-  // Reset: torna a "tots els anys" sense recàrrega
-  $(".concerts-filter-reset", $form).on("click", function (e) {
-    e.preventDefault();
-    $form.find('select[name="any"]').val("tots");
-    setPage(1);
     carregarConcerts();
   });
 });

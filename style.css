@@ -121,9 +121,161 @@ body {
   background-color: var(--cm-brand-soft);
   color: var(--cm-brand);
 }
+.coral-access-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.coral-access-btn--member-view {
+  background-color: #ffffff;
+  color: var(--cm-brand) !important;
+  border: 1px solid color-mix(in srgb, var(--cm-brand) 35%, #ffffff);
+}
+
+.coral-access-btn--member-view:hover {
+  background-color: var(--cm-brand-soft);
+  color: var(--cm-brand-strong) !important;
+}
+
 .coral-access-btn--logout:hover {
   background-color: #ee9696;
   color: var(--cm-brand-contrast);
+}
+
+/* Fitxes de concerts de la intranet */
+.fitxes-concerts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.fitxa-concert-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 100%;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+  color: #1f2933;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+.fitxa-concert-card__header {
+  min-height: 72px;
+}
+
+.fitxa-concert-card__date {
+  margin: 0 0 0.35rem;
+  color: var(--cm-brand-strong);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.fitxa-concert-card__title {
+  margin: 0;
+  color: #111827;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.fitxa-concert-card__preview {
+  margin: 0;
+}
+
+.fitxes-concerts .document-preview {
+  height: 180px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #f3f4f6;
+}
+
+.fitxes-concerts .document-preview iframe {
+  width: 150%;
+  height: 300px;
+  border: 0;
+  transform: translate(-16.666%, -52px);
+  transform-origin: top center;
+  pointer-events: none;
+}
+
+.fitxa-concert-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: auto;
+}
+
+.fitxa-concert-card__button {
+  display: inline-flex;
+  justify-content: center;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #1f2933;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none !important;
+}
+
+.fitxa-concert-card__button:hover {
+  color: var(--cm-brand-strong);
+  background: var(--cm-brand-soft);
+  border-color: var(--cm-brand);
+}
+
+.fitxes-concerts-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 2rem;
+}
+
+.fitxes-concerts-pagination a,
+.fitxes-concerts-pagination span {
+  min-width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.75rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none !important;
+}
+
+.fitxes-concerts-pagination a {
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #1f2933;
+}
+
+.fitxes-concerts-pagination a:hover {
+  border-color: var(--cm-brand);
+  background: var(--cm-brand-soft);
+  color: var(--cm-brand-strong);
+}
+
+.fitxes-concerts-pagination a.is-active {
+  border-color: var(--cm-brand-strong);
+  background: var(--cm-brand-strong);
+  color: #ffffff;
+}
+
+.fitxes-concerts-pagination span {
+  color: #ffffff;
+}
+
+.fitxes-concerts-empty {
+  color: #ffffff;
+  font-weight: 700;
 }
 
 /* quitar un margin de page ressenyes de concerts */

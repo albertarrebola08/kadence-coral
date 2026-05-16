@@ -6,7 +6,7 @@ add_action( 'wp_enqueue_scripts', function () {
 		'kadence-coral-style',
 		get_stylesheet_uri(),
 		[ 'kadence-global' ],
-		wp_get_theme()->get( 'Version' )
+		filemtime( get_stylesheet_directory() . '/style.css' )
 	);
 
 }, 20 );
@@ -60,6 +60,7 @@ add_filter( 'login_redirect', function ( $redirect_to, $request, $user ) {
 // Carregar el sistema de concerts
 
 require get_stylesheet_directory() . '/concerts/concerts.php';
+require get_stylesheet_directory() . '/concerts/fitxes-concerts.php';
 
 /**
  * Botó d'accés / tancar sessió per al header.
@@ -74,9 +75,20 @@ function coral_get_header_access_button_html(): string {
 		return '<a target="__blank" class="coral-access-btn coral-access-btn--login" href="' . esc_url( $login_url ) . '">Àrea privada</a>';
 	}
 
-	// Loguejat: logout
+	// Loguejat: acces membre per admins + logout
 	$logout_url = wp_logout_url( home_url( '/' ) ); // on vols anar després de logout
-	return '<a class="coral-access-btn coral-access-btn--logout" href="' . esc_url( $logout_url ) . '">Tancar sessió</a>';
+	$html       = '<span class="coral-access-actions">';
+
+	if ( current_user_can( 'manage_options' ) ) {
+		$html .= '<a class="coral-access-btn coral-access-btn--member-view" href="' . esc_url( home_url( '/area-privada/' ) ) . '">Veure com a membre</a>';
+	} else {
+		$html .= '<a class="coral-access-btn coral-access-btn--member-view" href="' . esc_url( home_url( '/area-privada/' ) ) . '">Àrea privada</a>';
+	}
+
+	$html .= '<a class="coral-access-btn coral-access-btn--logout" href="' . esc_url( $logout_url ) . '">Tancar sessió</a>';
+	$html .= '</span>';
+
+	return $html;
 }
 
 add_shortcode( 'coral_access_button', function () {
@@ -199,6 +211,15 @@ add_shortcode( 'coral_calendari_pdf', function () {
 	$html .= '</div>';
 
 	return $html;
+} );
+
+add_action( 'template_redirect', function () {
+	$path = trim( (string) wp_parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH ), '/' );
+
+	if ( in_array( $path, [ 'que-fem/arxiu-de-concerts', 'que-fem/proxims-concerts' ], true ) ) {
+		wp_safe_redirect( home_url( '/que-fem/concerts/' ), 301 );
+		exit;
+	}
 } );
 
 //FUNCIONALITAT MAPA INTERACTIU: ON HEM CANTAT

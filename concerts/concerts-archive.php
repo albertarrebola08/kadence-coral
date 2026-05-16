@@ -17,14 +17,14 @@ function coral_concerts_arxiu_shortcode( $atts ) {
 		'coral-concerts',
 		get_stylesheet_directory_uri() . '/concerts/concerts.css',
 		[],
-		'1.1'
+		'1.4'
 	);
 
 	wp_enqueue_script(
 		'coral-concerts-archive',
 		get_stylesheet_directory_uri() . '/concerts/concerts-archive.js',
 		[ 'jquery' ],
-		'1.0',
+		'1.1',
 		true
 	);
 
@@ -103,14 +103,6 @@ function coral_concerts_arxiu_shortcode( $atts ) {
 			<input type="hidden" name="action" value="coral_get_concerts_archive" />
 			<input type="hidden" name="nonce" value="<?php echo esc_attr( wp_create_nonce( 'coral_concerts_archive_nonce' ) ); ?>" />
 			<input type="hidden" name="concert_page" value="<?php echo esc_attr( $paged ); ?>" />
-
-			<button type="submit" class="concerts-filter-button">
-				Filtrar
-			</button>
-
-			<a class="concerts-filter-reset" href="<?php echo esc_url( $archive_url ); ?>">
-				Netejar
-			</a>
 		</form>
 
 		<div id="concerts-archive-results" class="concerts-archive-results">
@@ -266,7 +258,7 @@ function coral_get_concerts_archive() {
 	$archive_url = remove_query_arg( [ 'concert_page', 'any' ], esc_url_raw( $archive_url ) );
 
 	if ( ! $archive_url ) {
-		$archive_url = home_url( '/arxiu-de-concerts/' );
+		$archive_url = home_url( '/que-fem/concerts/' );
 	}
 
 	$fragment = coral_concerts_arxiu_render_fragment( $any, $paged, $per_page, $archive_url );
